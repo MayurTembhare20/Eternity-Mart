@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- inner page banner -->
+<div class="section inner_banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="full">
+                    <h3>Product List</h3>
+                    <ul class="breadcrum">
+                        <li><a href="{% url 'home_page' %}">Home</a></li>
+                        <li>&gt;</li>
+                        <li>Product List</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end inner page banner -->
+<!-- section -->
+<div id="content-page" class="section main-content-box">
+    <div class="container-fluid limit-box">
+        <div class="row">
+            <aside class="col-lg-12">
+                <div class="right-product-box">
+                    <div class="row no-gutters list-top-bar">
+
+                        {% if products %}
+                        <div class="mb-2 col-12 col-sm-12 text-center text-sm-right">
+                            <form action="" method="GET">
+                                <div class="toolbar-sorter-right d-md-flex align-items-center">
+                                    <span>Sort by </span>
+                                    <select class="wide" name="sorting">
+                                        <option data-display="Select">Select</option>
+                                        <option value="-data_started"> A to Z </option> 
+                                        <option value="-data_added"> new </option>
+                                        <option value="low">Low Price → High Price</option>
+                                        <option value="high">High Price → Low Price</option>
+                                        <option value="product_name">name</option>
+                                    </select>
+                                    <span>
+                                        <button type="submit" class="ml-md-2 btn btn-dark">submit</button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="row no-gutters main-categorie">
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
+                                <div class="row">
+                                    {% if products %}
+                                    {% for product in products %}
+                                    <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-3" style="width: 50%;">
+                                        <div class="product-item-info">
+                                            <div class="product-item-photo ">
+                                                <div class="item-gallery">
+                                                    <a href="{% url 'Product_Details' product_slug=product.slug %}">
+                                                        <img class="img-40perc" src="{{ product.cover_image.url }}" alt="" style="height: 400px; width: 100%; border: 0px;" />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-item-details">
+                                                <div class="product_cont">
+                                                    <p class="info_pr">{{ product.product_category.name }}</p>
+                                                    <h3>{{ product.name|title }}</h3>
+                                                    <p class="price_tag">₹{{ product.price }} </p>
+                                                    <div class="bottom_bt_pr">
+                                                        <a class="bt_pro" href="{% url 'Product_Details' product_slug=product.slug %}"> View Product </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    {% else %}
+                                    <div class="alert alert-info">Product Not found</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+
+<div class="pagination center">
+    {% if page_obj.has_previous %}
+    <a href="?page=1" class="btn-info p-2 border-2">« First</a>
+    <a href="?page={{ page_obj.previous_page_number }}" class="btn-info p-2">Previous</a>
+    {% endif %}
+
+    <span class="current-page btn-info p-2">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" class="btn-info p-2">Next</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}" class="btn-info p-2">Last »</a>
+    {% endif %}
+</div>
+
+<!-- end section -->
+{% endblock content %}

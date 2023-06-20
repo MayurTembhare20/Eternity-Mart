@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="center mb-5 rounded">
+<div class="card text-center mt-5  tp-shadow1 p-2 bg-light " style="width: 20rem; ">
+
+    <div class="card-body center">
+        <h1>Thank You For Shopping !</h1>  
+    </div>
+    <h2><i class="fa fa-check-circle-o" style="font-size: 52px"></i></h2>
+    <h3> Your Order Placed Successfully 😊</h3>
+    <button class="center p-2"><a href="{% url 'home_page' %}">Go to home</a></button>
+</div>
+</div>
+{% endblock content %}

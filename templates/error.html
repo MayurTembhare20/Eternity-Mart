@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <!-- inner page banner -->
+  <div class="section inner_banner">
+    <div class="container">
+       <div class="row">
+          <div class="col-md-12">
+             <div class="full">
+                <h3>Error 404</h3>
+                <ul class="breadcrum">
+                   <li><a href="home_1.html">Home</a></li>
+                   <li>&gt;</li>
+                   <li>Error 404</li>
+                </ul>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ <!-- end inner page banner -->
+
+ <!-- section -->
+ <div class="section layout_padding">
+    <div class="container">
+       <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+             <div class="center">
+                <div class="error_img"><img class="img-responsive margin_bottom_30_all" src="{% static 'images/404_img.png' %}" alt="#" width="650"/></div>
+             </div>
+             <div class="heading_normal text_align_center">
+                <h2>OOOPS, There is something error !</h2>
+                <p>The page you are looking for might have been removed, had its name changed, or is<br/>temporarily unavailable.</p>
+             </div>
+             <div class="center margin_top_50">
+                <a class="btn main_bt" href="{% url 'home_page' %}">Back Home</a>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ <!-- end section -->
+ 
+ <!-- section -->
+ <div class="section sign_up_bottom dark_bg">
+    <div class="container">
+       <div class="row">
+          <div class="col-md-6 col-lg-4 mt-3">
+             <div class="payment_card_list">
+                <img src="{% static 'images/card.png' %}" alt="#"/>
+             </div>
+          </div>
+          <div class="col-md-6 col-lg-8">
+             <div class="sign_up_cont">
+                <h3>Sign up for emails</h3>
+                <div class="signup_form_section">
+                   <form>
+                      <fieldset>
+                         <div class="field">
+                            <input type="email" name="email" placeholder="Enter your email address" required=""/>
+                         </div>
+                         <div class="field">
+                            <button>Subscribe</button>
+                         </div>
+                      </fieldset>
+                   </form>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ <!-- end section -->
+ {% endblock content %}

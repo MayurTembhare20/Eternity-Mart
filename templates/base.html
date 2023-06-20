@@ -1,0 +1,339 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
+<head>
+   <meta charset="utf-8" />
+   <!-- basic -->
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+   <!-- site metas -->
+   <title>{{ global_website_setting.title }}</title>
+   <meta name="keywords" content="" />
+   <meta name="description" content="" />
+   <meta name="author" content="" />
+   <!-- bootstrap css -->
+   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+   <!-- style css -->
+   <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+   <!-- Responsive-->
+   <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+   <!-- custom css -->
+   <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+   <!-- Revolution Loaling Fonts and Icons  -->
+   <link rel="stylesheet" href="{% static 'js/revolution/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css' %}" />
+   <!-- Revolution style Sheets  -->
+   <link rel="stylesheet" href="{% static 'js/revolution/css/settings.css' %}" />
+   <link rel="stylesheet" href="{% static 'js/revolution/css/layers.css' %}" />
+   <link rel="stylesheet" href="{% static 'js/revolution/css/navigation.css' %}" />
+   <!-- fevicon -->
+   <link rel="icon" href="#" type="image/gif" />
+   <!-- Scrollbar Custom CSS -->
+   <link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.min.css' %}" />
+   <!-- Tweaks for older IEs-->
+   <!-- END EZHEAD -->
+</head>
+<!-- body -->
+
+<body class="main-layout">
+   <!-- loader  -->
+   <div class="loader_bg">
+      <div class="loader"><img src="{% static 'images/loading.gif' %}" alt="" /></div>
+   </div>
+   <!-- end loader -->
+   <!-- header -->
+   <header>
+      <!-- header top -->
+      <div class="header_top ">
+         <div class="container">
+            <div class="row center">
+               <div class="col-md-12 col-lg-12 col-sm-12">
+                  <div class="full">
+                     <span class="text-info font-weight-bold fa-2x" style="background-color: limegreen (red,green);">{{ global_website_setting.title }}</span>
+                     <div class="float-right mt-1 ">
+                        <ul class="mx-0">
+                           {% if request.user.is_authenticated %}
+                           <li class="btn-info p-2 rounded ">
+                              <p class="w-50"><a href="{% url 'Profile_View' %}">{{request.user.username|capfirst}}</a></p>
+                           </li>
+                           <li class="ml-3 btn-info p-2 rounded">
+                              <a href="{% url 'logout_view' %}">Logout</a>
+                           </li>
+                           {% else %}
+                           <li class="btn-info p-2 rounded">
+                              <a href="{% url 'LoginView' %}">Login &amp; Register</a>
+                           </li>
+                           {% endif %}
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- header top end -->
+      <!-- header middle -->
+      <div class="header_middle">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-3 mx-0">
+                  <div class="full">
+                     <div class="center-desk">
+                        <div class="logo"> <a href="#"><img src="{{global_website_setting.logo.url}}" alt="#" style="height: 70px; width: 260px;"/></a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-9">
+                  <div class="search_style">
+                     <div class="top_search_bar">
+                        <form action="{% url 'product_listing' %}">
+                           <fieldset>
+                              <div class="field">
+                                 <input placeholder="Search Product...." type="text" name="search"
+                                    value="{{request.GET.search}}" />
+                                 <div class="search_catry_bt">
+                                    <button type="submit" class="submit_search">Search</button>
+                                 </div>
+                              </div>
+                           </fieldset>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end header middle -->
+      <!-- message -->
+      {% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible shadow fade show " role="alert">
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+         </button>
+         <strong> Message: </strong> {{ message | safe }}
+      </div>
+      {% endfor %}
+      <!-- message -->
+      <!-- header bottom -->
+      <div class="header_bottom " >
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-8">
+                  <div class="menu-area">
+                     <div class="limit-box">
+                        <nav class="main-menu">
+                           <ul class="menu-area-main">
+                              <li class="active">
+                                 <a href="{% url 'home_page' %}">Home</a>
+                              </li>
+                              <li><a href="{% url 'about_page' %}">About us</a></li>
+                              <li>
+                                 <a href="#">Categories
+                                    <span class="caret"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                                 </a>
+                                 <ul class="sub-down simple-down">
+                                    {% for navigation_product_category in navigation_product_categories %}
+                                    <li><a
+                                          href="{% url 'product_listing' product_category_slug=navigation_product_category.slug %}"><i
+                                             class="fa fa-angle-right"></i> {{ navigation_product_category.name }}</a>
+                                    </li>
+                                    {% endfor %}
+                                 </ul>
+                              </li>
+                              <li class="">
+                                 <a href="{% url 'blog_details' %}">Blog</a>
+                              </li>
+                              <li><a href="{% url 'contact_page' %}">Contact us</a></li>
+                           </ul>
+                        </nav>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-4">
+                  <div class="full center">
+                     <div class="right_cart_section">
+                        <ul class="cart_icons">
+                           <li><a href="#"><i class="fa fa-heart-o"></i> 0</a></li>
+
+                           {% if request.user.is_authenticated %}
+                           <li><a href="{% url 'my_cart_view' %}"><i class="fa fa-shopping-bag"></i>{{ global_cart_quantity }}</a></li>
+                           {% else %}
+                           <li><i class="fa fa-shopping-bag"></i>0</li>
+                           {% endif %}
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   <!-- end header bottom -->
+   </header>
+   <!-- end header -->
+
+   {% block content %}
+
+   {% endblock content %}
+   <!-- footer -->
+   <footer>
+      <div class="footer_top">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12 col-lg-4">
+                  <div class="footer_info">
+                     <h3>Contact Info</h3>
+                     <div class="footer_info_inner">
+                        <ul class="bottom_cont">
+                           <li><i class="fa fa-map-marker" aria-hidden="true"></i> {{global_website_setting.address}}
+                           </li>
+                           <li><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:9876543210">
+                                 {{global_website_setting.phone}}</a></li>
+                           <li><i class="fa fa-envelope" aria-hidden="true"></i> <a href="">
+                                 {{global_website_setting.email}}</a></li>
+                        </ul>
+                        <ul class="social_icon">
+                           <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                           <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                           <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                           <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                           <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
+                           <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 col-lg-8" id="about">
+                  <div class="footer_links">
+                     <h3>Usefull Links</h3>
+                     <div class="ul_list_f_menu">
+                        <ul>
+                           <li><strong>Details</strong></li>
+                           <li><a href="{% url 'about_page' %}">&gt; About</a></li>
+                           <li><a href="{% url 'faqs_page' %}">&gt; FAQ</a></li>
+                           <li><a href="{% url 'contact_page' %}">&gt; Contact us</a></li>
+                        </ul>
+                        <ul>
+                           <li><strong>Account</strong></li>
+                           {% if request.user.is_authenticated %}
+                           <li><a href="{% url 'Profile_View' %}">&gt; My Account</a></li>
+                           {% else %}
+                           <li><a href="#">&gt; My Account</a></li>
+                           {% endif %}
+                           {% if request.user.is_authenticated %}
+                           <li><a href="{% url 'my_cart_view' %}">&gt; Order History</a></li>
+                           {% else %}
+                           <li><a href="#">&gt; Order History</a></li>
+                           {% endif %}
+                           <li><a href="#">&gt; Wishlist</a></li>
+                        </ul>
+                        <ul>
+                           <li><strong>Services</strong></li>
+                           <li><a href="#">&gt; Return Policy</a></li>
+                           <li><a href="#">&gt; Customer Service</a></li>
+                           <li><a href="#">&gt; Term &amp; Condition</a></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row margin_top_50">
+               <div class="col-lg-3 col-md-6">
+                  <div class="full">
+                     <div class="process_blog">
+                        <div class="step_no">
+                           <p><i class="fa fa-truck"></i></p>
+                        </div>
+                        <div class="step_infor">
+                           <p class="step_head">Free Shipping on</p>
+                           <p class="step_cont">Order over ₹250 </p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-3 col-md-6">
+                  <div class="full">
+                     <div class="process_blog">
+                        <div class="step_no">
+                           <p><i class="fa fa-phone"></i></p>
+                        </div>
+                        <div class="step_infor">
+                           <p class="step_head">Need Help</p>
+                           <p class="step_cont">987 654 3210</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-3 col-md-6">
+                  <div class="full">
+                     <div class="process_blog">
+                        <div class="step_no">
+                           <p><i class="fa fa-usd"></i></p>
+                        </div>
+                        <div class="step_infor">
+                           <p class="step_head">Money Back</p>
+                           <p class="step_cont">Guarantee</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-3 col-md-6">
+                  <div class="full">
+                     <div class="process_blog">
+                        <div class="step_no">
+                           <p><i class="fa fa-briefcase"></i></p>
+                        </div>
+                        <div class="step_infor">
+                           <p class="step_head">30 Days Return</p>
+                           <p class="step_cont">Service</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="footer_bottom">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="footer-copyright">
+                     <p>{{ global_website_setting.title }} All rights resereved*</p>
+                     <a href="#" id="back-to-top" class="scrollup"><i class="fa fa-chevron-up"></i></a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </footer>
+   <!-- end footer -->
+   <!-- Javascript files-->
+   <script src="{% static 'js/jquery.min.js' %}"></script>
+   <script src="{% static 'js/popper.min.js' %}"></script>
+   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+   <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+   <script src="{% static 'js/plugin.js' %}"></script>
+   <!-- Revolution Js Files -->
+   <script src="{% static 'js/revolution/js/jquery.themepunch.tools.min.js' %}"></script>
+   <script src="{% static 'js/revolution/js/jquery.themepunch.revolution.min.js' %}"></script>
+   <script src="{% static 'js/slider-setting.js' %}"></script>
+   <!-- Slider Revolution 5.0 Extensions -->
+   <script src="{% static 'js/revolution/js/extensions/revolution.extension.actions.min.js' %}"></script>
+   <script src="{% static 'js/revolution/js/extensions/revolution.extension.carousel.min.js' %}"></script>
+   <script src="{% static 'js/revolution/js/extensions/revolution.extension.kenburn.min.js' %}"></script>
+   <script src="{% static 'js/revolution/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
+   <script src="{% static 'js/revolution/js/extensions/revolution.extension.migration.min.js' %}"></script>
+   <script src="{% static 'js/revolution/js/extensions/revolution.extension.navigation.min.js' %}"></script>
+   <script src="{% static 'js/revolution/js/extensions/revolution.extension.parallax.min.js' %}"></script>
+   <script src="{% static 'js/revolution/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+   <script src="{% static 'js/revolution/js/extensions/revolution.extension.video.min.js' %}"></script>
+   <!-- End Revolution Slider Extensions -->
+   <!-- sidebar -->
+   <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+   <script src="{% static 'js/custom.js' %}"></script>
+
+</html>

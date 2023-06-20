@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- inner page banner -->
+<div class="section inner_banner">
+    <div class="container">
+       <div class="row">
+          <div class="col-md-12">
+             <div class="full">
+                <h3>Blog Detail</h3>
+                <ul class="breadcrum">
+                   <li><a href="{% url 'home_page' %}">Home</a></li>
+                   <li>&gt;</li>
+                   <li>Blog individual Detail</li>
+                </ul>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ <!-- end inner page banner -->
+ <div class="section layout_padding border_bottom_light blog_section">
+    <div class="container">
+       <div class="row">
+          <!-- blog section -->
+          <div class="col-md-8 col-lg-8 mt-5 mb-4">
+            <div class="row  ">
+                <!-- blog section -->
+                {% if blogs %}
+                                       
+                {% for blog in blogs %}
+                <div class="col-md-8 col-lg-9 blog_layout margin_bottom_30_all " >
+                   <div class="blog_inner blog_list">
+                      <div class="blog_featured_img center border">
+                         <img class="img-responsive " src="{{ blog.image.url }}"  alt="#" />
+                         <div class="post_information">
+                            <div class="post_info_inner">
+                               <ul>
+                                  <li><i class="fa fa-clock-o"></i><a href="#"> {{blog.date_time}}</a></li>
+                                  <li><i class="fa fa-user"></i><a href="#"> Admin</a></li>
+                                  <li><i class="fa fa-comment"></i><a href="#"> 26 Comments</a></li>      
+                               </ul>
+                            </div>
+                            <div class="post_shr">
+                               <div class="item-actions">
+                                  <div class="share-button-list">
+                                     <span class="icon icon-share2"></span>
+                                     <ul>
+                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
+                                     </ul>
+                                  </div>
+                               </div>
+                            </div>
+                         </div>
+                      </div>
+                      <div class="blog_featured_cont">
+                         <h3>{{blog.title}}</h3>
+                         <h6 class="post_author_name">Posted by {{blog.author}}</h6>
+                         <p>{{blog.description}}</p>
+                        
+                      </div>
+                   </div>
+                </div>
+                {% endfor %} 
+                {% else %}
+                <div class="alert alert-info">Data Not found</div>
+                {% endif  %}  
+             </div>
+          </div>
+          <!-- blog section -->
+          <!-- sidebar -->
+          <div class="col-md-4 col-lg-4">
+             <div class="full sidebar_blog_main">
+                <div class="inline-search clearfix">
+                  <form action="">
+                      <input placeholder="Start Searching..." id="s" name="s" class="serch-input" value="{{request.GET.s}}" type="text"/>
+                      <button type="submit"> <i class="fa fa-search"></i> </button>
+                   </form>
+                </div>
+                <div class="fied-tab-box">
+                   <ul class="nav nav-tabs nav-bottom-border nav-justified">
+                      <li class="nav-item"> <a class="nav-item active" href="#tab_1" data-toggle="tab">Recent</a></li>
+                      <li class="nav-item"> <a class="nav-item" href="#tab_2" data-toggle="tab">popular
+                         </a> 
+                      </li>
+                   </ul>
+                   <div class="tab-content">
+                      <div id="tab_1" class="tab-pane active fade show">
+                         <div class="row tab-post">
+                            <div class="col-md-3 col-3">
+                               <div class="post-ibox">
+                                  <a href="#"> <img src="{% static 'images/ep2.png' %}" alt="#"/> </a>
+                               </div>
+                            </div>
+                            <div class="col-md-9 col-9">
+                               <a href="#" class="tab-post-link">Smart watch with air buds</a> <small>10 September 2018</small>
+                               <p> Smartwatches can even take calls, download apps, connect to the Wi-Fi, and do a lot more!..</p>
+                            </div>
+                         </div>
+                         <div class="row tab-post">
+                            <div class="col-md-3 col-3">
+                               <div class="post-ibox">
+                                  <a href="#"> <img src="{% static 'images/ep3.png' %}" alt="#"/> </a>
+                               </div>
+                            </div>
+                            <div class="col-md-9 col-9">
+                               <a href="#" class="tab-post-link">Lens</a> <small>10 September 2018</small>
+                               <p>This frame holds the lens in front of the eyes while a bridge goes over the ears...</p>
+                            </div>
+                         </div>
+                         <div class="row tab-post">
+                            <div class="col-md-3 col-3">
+                               <div class="post-ibox">
+                                  <a href="#"> <img src="{% static 'images/ep4.png' %}" alt="#"/> </a>
+                               </div>
+                            </div>
+                            <div class="col-md-9 col-9">
+                               <a href="#" class="tab-post-link">Charger</a> <small>8 September 2018</small>
+                               <p>A well-made, understated pair of silver cufflinks is a great accessory as this color is perfect for shirts in any color..</p>
+                            </div>
+                         </div>
+                      </div>
+                      <div id="tab_2" class="tab-pane fade">
+                         <div class="row tab-post">
+                            <div class="col-md-3 col-3">
+                               <div class="post-ibox">
+                                  <a href="#"> <img src="{% static 'images/ep5.png' %}" alt="#"/> </a>
+                               </div>
+                            </div>
+                            <div class="col-md-9 col-9">
+                               <a href="#" class="tab-post-link">Mouse</a> <small>9 September 2018</small>
+                               <p>Mouse on the waist can be worn for casual attire but sashes which go from shoulder to hip are usually reserved for ceremonies...</p>
+                            </div>
+                         </div>
+                         <div class="row tab-post">
+                            <div class="col-md-3 col-3">
+                               <div class="post-ibox">
+                                  <a href="#"> <img src="{% static 'images/ep6.png' %}" alt="#"/> </a>
+                               </div>
+                            </div>
+                            <div class="col-md-9 col-9">
+                               <a href="#" class="tab-post-link">Wireless Headphones</a> <small>10 September 2018</small>
+                               <p> They have a similar function to garters or suspenders. Most trousers are designed with belt loops around the waist that the Wireless has to go through. ..</p>
+                            </div>
+                         </div>
+                         <div class="row tab-post">
+                            <div class="col-md-3 col-3">
+                               <div class="post-ibox">
+                                  <a href="#"> <img src="{% static 'images/ep1.png' %}" alt="#"/> </a>
+                               </div>
+                            </div>
+                            <div class="col-md-9 col-9">
+                               <a href="#" class="tab-post-link">Headphones</a> <small>11 September 2018</small>
+                               <p>There are many different styles of Headphones that are available including baseball caps, beanies, berets, fedora, panama, and many more..</p>
+                            </div>
+                         </div>
+                         <div class="row tab-post">
+                            <div class="col-md-3 col-3">
+                               <div class="post-ibox">
+                                  <a href="#"> <img src="{% static 'images/ep2.png' %}" alt="#"/> </a>
+                               </div>
+                            </div>
+                            <div class="col-md-9 col-9">
+                               <a href="#" class="tab-post-link">Smart Watch</a> <small>12 September 2018</small>
+                               <p>Watches are timepieces that can be carried or worn. Wristwatches are often made with a band, strap, or other types of bracelets so that they can be worn around the wrist.</p>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                <div class="row">
+                   <div class="col-md-12">
+                      <div class="side-nav-category">
+                         <div class="title"> <span>Categories</span> </div>
+                         <ul class="list-group list-group-bordered ">
+                            <li class="list-group-item"><a href="#"><span class="fs-11 float-right">(16)</span> Best Reviews</a></li>
+                            <li class="list-group-item"><a href="#"><span class="fs-11 float-right">(2)</span> Fashion on this week</a></li>
+                            <li class="list-group-item"><a href="#"><span class="fs-11 float-right">(1)</span>  Stylis Looks</a></li>
+                            <li class="list-group-item"><a href="#"><span class="fs-11 float-right">(12)</span> Branding</a></li>
+                            <li class="list-group-item"><a href="#"><span class="fs-11 float-right">(8)</span> Movies</a></li>
+                            <li class="list-group-item"><a href="#"><span class="fs-11 float-right">(32)</span> New</a></li>
+                         </ul>
+                      </div>
+                   </div>
+                   <div class="col-md-12">
+                      <div class="category-tag">
+                         <div class="title"> <span>Tags</span> </div>
+                         <div class="tag-blog">
+                            <a class="tag" href="#"> <span class="txt">RESPONSIVE</span> <span class="num">12</span> </a>
+                            <a class="tag" href="#"> <span class="txt">CSS</span> <span class="num">3</span> </a>
+                            <a class="tag" href="#"> <span class="txt">HTML</span> <span class="num">1</span> </a>
+                            <a class="tag" href="#"> <span class="txt">JAVASCRIPT</span> <span class="num">28</span> </a>
+                            <a class="tag" href="#"> <span class="txt">DESIGN</span> <span class="num">6</span> </a>
+                            <a class="tag" href="#"> <span class="txt">DEVELOPMENT</span> <span class="num">3</span> </a>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                <div class="offer-slider margin_top_50">
+                   <div class="sidebar-banner">
+                      <img src="images/offer-img.jpg" alt=""/>
+                      <div class="effect-ab">
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+          <!-- end sidebar -->
+       </div>
+    </div>
+ </div>
+ <!-- end section -->
+ <!-- section -->
+ <div class="section sign_up_bottom dark_bg">
+    <div class="container">
+       <div class="row">
+          <div class="col-md-6 col-lg-4 mt-3">
+             <div class="payment_card_list">
+                <img src="{% static 'images/card.png' %}" alt="#"/>
+             </div>
+          </div>
+          <div class="col-md-6 col-lg-8">
+             <div class="sign_up_cont">
+                <h3>Sign up for emails</h3>
+                <div class="signup_form_section">
+                   <form>
+                      <fieldset>
+                         <div class="field">
+                            <input type="email" name="email" placeholder="Enter your email address" required=""/>
+                         </div>
+                         <div class="field">
+                            <button>Subscribe</button>
+                         </div>
+                      </fieldset>
+                   </form>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ {% endblock content %}
