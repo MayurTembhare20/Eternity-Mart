@@ -28,50 +28,50 @@ def home_page(request):
 
 
 def product_listing(request,product_category_slug=None):
-        """ Products with category slug """
-        search = request.GET.get('search')
-        sorting = request.GET.get('sorting')
-        filters = {
-            'status':True
-        }
+    """ Products with category slug """
+    search = request.GET.get('search')
+    sorting = request.GET.get('sorting')
+    filters = {
+        'status':True
+    }
+    
+    if search:
+        filters['name__icontains'] = request.GET.get('search')
+        products = Products.objects.select_related('product_category').filter(**filters)
+    else:
+        pass
+
+    if product_category_slug:
+        filters['product_category__slug'] = product_category_slug
+        Products.objects.select_related('product_category').filter(**filters)
         
-        if search:
-            filters['name__icontains'] = request.GET.get('search')
-            products = Products.objects.select_related('product_category').filter(**filters)
-        else:
-            pass
+    if sorting == "low":
+        products = (
+            Products.objects.select_related('product_category').filter(**filters).order_by('price')
+        )
 
-        if product_category_slug:
-            filters['product_category__slug'] = product_category_slug
-            Products.objects.select_related('product_category').filter(**filters)
-            
-        if sorting == "low":
-            products = (
-                Products.objects.select_related('product_category').filter(**filters).order_by('price')
-            )
+    items_per_page = 3
+    page  = request.GET.get('page',1)
+    products = Products.objects.select_related('product_category').filter(**filters) # recomended
+    paginator = Paginator(products, items_per_page)
 
-        items_per_page = 3
-        page  = request.GET.get('page',1)
-        products = Products.objects.select_related('product_category').filter(**filters) # recomended
-        paginator = Paginator(products, items_per_page)
-
-        try:
-            products = paginator.page(page)
-        except PageNotAnInteger:
-            products = paginator.page(items_per_page)
-        except EmptyPage:
-            products = paginator.page(paginator.num_pages)
-            
-        if sorting == "high":
-            products = (
-                Products.objects.select_related('product_category').filter(**filters).order_by('-price')
-            )
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(items_per_page)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+        
+    if sorting == "high":
+        products = (
+            Products.objects.select_related('product_category').filter(**filters).order_by('-price')
+        )
        
-        context = {
-            'products' : products,
-            'page_obj' : products
-        }
-        return render(request,'product/product_listing.html',context)
+    context = {
+        'products' : products,
+        'page_obj' : products
+    }
+    return render(request,'product/product_listing.html',context)
     
 
 class Product_Details(View):
@@ -125,6 +125,7 @@ def blog_details(request):
     }
     return render(request,'blog_details.html',context)
 
+
 def single_post(request,blog_slug):
     """ create single_post page """
     filters = {
@@ -141,6 +142,7 @@ def single_post(request,blog_slug):
         'blogs': blogs       
     }
     return render(request,'blog_self_details.html',context)
+
 
 def all_products(request):
     """ crete  all products page"""
